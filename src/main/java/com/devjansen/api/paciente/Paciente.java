@@ -1,6 +1,7 @@
 package com.devjansen.api.paciente;
 
 import com.devjansen.api.endereco.Endereco;
+import com.devjansen.api.paciente.dtos.DadosCadastroPaciente;
 import jakarta.persistence.*;
 import lombok.*;
 

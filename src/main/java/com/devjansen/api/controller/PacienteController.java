@@ -1,7 +1,7 @@
 package com.devjansen.api.controller;
 
-import com.devjansen.api.paciente.DadosCadastroPaciente;
-import com.devjansen.api.paciente.DadosListagemPaciente;
+import com.devjansen.api.paciente.dtos.DadosCadastroPaciente;
+import com.devjansen.api.paciente.dtos.DadosListagemPaciente;
 import com.devjansen.api.paciente.Paciente;
 import com.devjansen.api.paciente.PacienteRepository;
 import jakarta.validation.Valid;
@@ -10,8 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("pacientes")

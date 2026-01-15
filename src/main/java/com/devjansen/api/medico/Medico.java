@@ -1,6 +1,9 @@
 package com.devjansen.api.medico;
 
+import com.devjansen.api.endereco.DadosEndereco;
 import com.devjansen.api.endereco.Endereco;
+import com.devjansen.api.medico.dtos.DadosAtualizacaoMedico;
+import com.devjansen.api.medico.dtos.DadosCadastroMedico;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -37,5 +40,18 @@ public class Medico {
         this.especialidade = dados.especialidade();
         this.endereco = new Endereco(dados.endereco());
     }
+
+    public void atualizarInformacoes(DadosAtualizacaoMedico dados){
+        if(dados.nome() != null){
+            this.nome = dados.nome();
+        }
+        if(dados.telefone() != null){
+            this.nome = dados.telefone();
+        }
+        if(dados.dadosEndereco() != null){
+            this.endereco.atualizarEndereco(dados.dadosEndereco());
+        }
+    }
+
 
 }
