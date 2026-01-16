@@ -1,6 +1,7 @@
 package com.devjansen.api.paciente;
 
 import com.devjansen.api.endereco.Endereco;
+import com.devjansen.api.paciente.dtos.DadosAtualizacaoPaciente;
 import com.devjansen.api.paciente.dtos.DadosCadastroPaciente;
 import jakarta.persistence.*;
 import lombok.*;
@@ -23,6 +24,7 @@ public class Paciente {
     private String email;
     private String telefone;
     private String cpf;
+    private boolean ativo;
 
     @Embedded
     private Endereco endereco;
@@ -34,8 +36,25 @@ public class Paciente {
         this.email = dados.email();
         this.telefone = dados.telefone();
         this.cpf = dados.cpf();
+        this.ativo = true;
         this.endereco = new Endereco(dados.endereco());
 
+    }
+
+    public  void atualizarPaciente(DadosAtualizacaoPaciente dados){
+        if (dados.nome() != null){
+            this.nome = dados.nome();
+        }
+        if (dados.telefone() != null){
+            this.telefone = dados.telefone();
+        }
+        if(dados.dadosEndereco() != null){
+            this.endereco.atualizarEndereco(dados.dadosEndereco());
+        }
+    }
+
+    public void excluir(){
+        this.ativo = false;
     }
 
 }
