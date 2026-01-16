@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,20 +24,20 @@ public class MedicoController {
 
     @PostMapping
     @Transactional
-    public void cadastrar(@RequestBody @Valid DadosCadastroMedico dados){
+    public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroMedico dados){
         medicoRepository.save(new Medico(dados));
     }
 
     @GetMapping
-    public Page<DadosListagemMedico> listar(Pageable paginacao){
-        return medicoRepository .findAllByAtivoTrue(paginacao)
+    public ResponseEntity<Page<DadosListagemMedico>> listar(Pageable paginacao){
+        var page = medicoRepository.findAllByAtivoTrue(paginacao)
                 .map(DadosListagemMedico::new);
-
+        return  ResponseEntity.ok(page);
     }
 
     @PutMapping
     @Transactional
-    public void atualizar(@RequestBody @Valid DadosAtualizacaoMedico dados){
+    public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoMedico dados){
         var medico = medicoRepository.getReferenceById(dados.id());
         medico.atualizarInformacoes(dados);
     }
@@ -44,9 +45,10 @@ public class MedicoController {
     //metodo para deleta medico por id
     @DeleteMapping("/{id}")
     @Transactional
-    public void excluir(@PathVariable Long id){
+    public ResponseEntity excluir(@PathVariable Long id){
       var medico = medicoRepository.getReferenceById(id);
       medico.excluir();
+      return ResponseEntity.noContent().build();
     }
 
 }
